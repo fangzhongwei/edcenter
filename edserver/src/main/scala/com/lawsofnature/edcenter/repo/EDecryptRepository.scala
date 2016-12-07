@@ -20,10 +20,19 @@ trait EDecryptRepository extends Tables {
       TmEncryptedData += tmEncryptedDataRow
     }, Duration.Inf)
 
-  @ServiceCache(method = CacheMethod.SELECT, keyDir = "tt:", expireSeconds = -1)
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-t:", expireSeconds = -1)
   def getEncryptedData(ticket: String): TmEncryptedDataRow =
     Await.result(db.run {
       TmEncryptedData.filter(_.ticket === ticket).result.headOption
+    }, Duration.Inf) match {
+      case Some(raw) => raw
+      case None => null
+    }
+
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = -1)
+  def getEncryptedDataBySha(sha: String): TmEncryptedDataRow =
+    Await.result(db.run {
+      TmEncryptedData.filter(_.hash === sha).result.headOption
     }, Duration.Inf) match {
       case Some(raw) => raw
       case None => null

@@ -32,8 +32,16 @@ class EdServiceImpl @Inject()(eDecryptRepository: EDecryptRepository) extends Ed
     val encryptedThreeDesKey: String = RSAHexUtils.encryptByPublic(threeDesKey, rasPublicKey)
     val encryptedData: String = EDecryptUtils.encrypt(raw, encryptedThreeDesKey, rasPrivateKey)
     val ticket: String = eDecryptRepository.getNextTicket(PRE_)
-    eDecryptRepository.saveEncryptedData(TmEncryptedDataRow(ticket, DigestUtils.sha256Hex(raw.getBytes(defaultCharset)), encryptTypeRsa, encryptedThreeDesKey, encryptedData, 1, new Timestamp(System.currentTimeMillis())))
-    new EncryptResponse(true, 0, ticket)
+    val sha: String = DigestUtils.sha256Hex(raw.getBytes(defaultCharset))
+
+    val existedEncryptedDataRow: TmEncryptedDataRow = eDecryptRepository.getEncryptedDataBySha(sha)
+    existedEncryptedDataRow == null match {
+      case true =>
+        eDecryptRepository.saveEncryptedData(TmEncryptedDataRow(ticket, sha, encryptTypeRsa, encryptedThreeDesKey, encryptedData, 1, new Timestamp(System.currentTimeMillis())))
+        new EncryptResponse(true, 0, ticket)
+      case false =>
+        new EncryptResponse(true, 0, existedEncryptedDataRow.ticket)
+    }
   }
 
   override def decrypt(traceId: String, ticket: String): DecryptResponse = {
