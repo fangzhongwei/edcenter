@@ -33,7 +33,7 @@ trait EDecryptRepository extends Tables {
 
   def getNextTicket(pre: String): String = {
     index = index + 1
-    val sequenceName = "ticket_id_" + index % 3
+    val sequenceName = new StringBuilder("ticket_id_").append(index % 3).toString()
     new StringBuilder(pre).append(Await.result(db.run(sql"""select nextval($sequenceName)""".as[(Long)]), Duration.Inf).head).toString()
   }
 }
