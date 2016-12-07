@@ -12,3 +12,4 @@ project/boot/
 .idea
 edcenter.ipr
 edcenter.iws
+*.log

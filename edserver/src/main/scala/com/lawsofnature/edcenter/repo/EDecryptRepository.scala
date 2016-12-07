@@ -1,8 +1,10 @@
 package com.lawsofnature.edcenter.repo
 
+import com.lawsofnatrue.common.cache.anno.ServiceCache
+import com.lawsofnatrue.common.cache.enumeration.CacheMethod
 import com.lawsofnature.connection.{DBComponent, MySQLDBImpl}
 
-import scala.concurrent.{Await, Future}
+import scala.concurrent.Await
 import scala.concurrent.duration.Duration
 
 /**
@@ -18,19 +20,22 @@ trait EDecryptRepository extends Tables {
       TmEncryptedData += tmEncryptedDataRow
     }, Duration.Inf)
 
-  def getEncryptedData(ticket: String): Option[TmEncryptedDataRow] =
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "tt:", expireSeconds = -1)
+  def getEncryptedData(ticket: String): TmEncryptedDataRow =
     Await.result(db.run {
       TmEncryptedData.filter(_.ticket === ticket).result.headOption
-    }, Duration.Inf)
+    }, Duration.Inf) match {
+      case Some(raw) => raw
+      case None => null
+    }
 
   var index = -1
 
-  def getNextTicket(pre:String): String = {
+  def getNextTicket(pre: String): String = {
     index = index + 1
-    val sequenceName = "member_id_" + index % 3
+    val sequenceName = "ticket_id_" + index % 3
     new StringBuilder(pre).append(Await.result(db.run(sql"""select nextval($sequenceName)""".as[(Long)]), Duration.Inf).head).toString()
   }
-
 }
 
 class EDecryptRepositoryImpl extends EDecryptRepository with MySQLDBImpl

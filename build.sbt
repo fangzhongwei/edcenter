@@ -26,6 +26,7 @@ lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).s
     "com.lawsofnature.common" % "common-mysql_2.11" % "1.0",
     "com.lawsofnature.edcenter" % "edclient_2.11" % "1.0",
     "com.lawsofnature.common" % "common-utils_2.11" % "1.0",
+    "com.lawsofnature.common" % "common-cache_2.12" % "1.0",
     "com.lawsofnature.common" % "common-error_2.11" % "1.0"
   )
 )

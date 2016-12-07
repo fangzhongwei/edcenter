@@ -37,10 +37,10 @@ class EdServiceImpl @Inject()(eDecryptRepository: EDecryptRepository) extends Ed
   }
 
   override def decrypt(traceId: String, ticket: String): DecryptResponse = {
-    eDecryptRepository.getEncryptedData(ticket) match {
-      case Some(data) =>
-        new DecryptResponse(true, 0, EDecryptUtils.decrypt(data.encryptData, data.encryptKey, rasPrivateKey))
-      case None => new DecryptResponse(false, ErrorCode.EC_ED_TICKET_NOT_EXISTS.getCode, "")
+    val encryptedDataRow: TmEncryptedDataRow = eDecryptRepository.getEncryptedData(ticket)
+    encryptedDataRow == null match {
+      case false => new DecryptResponse(true, 0, EDecryptUtils.decrypt(encryptedDataRow.encryptData, encryptedDataRow.encryptKey, rasPrivateKey))
+      case true => new DecryptResponse(false, ErrorCode.EC_ED_TICKET_NOT_EXISTS.getCode, "")
     }
   }
 }
