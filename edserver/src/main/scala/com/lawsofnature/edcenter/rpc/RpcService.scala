@@ -12,19 +12,24 @@ import com.lawsofnatrue.common.ice.{ConfigHelper, IceServerTemplate, IceServerTe
 import com.lawsofnature.common.redis.{RedisClientTemplate, RedisClientTemplateImpl}
 import com.lawsofnature.edcenter.repo.{EDecryptRepository, EDecryptRepositoryImpl}
 import com.lawsofnature.edcenter.service.{EdService, EdServiceImpl}
+import com.typesafe.config.{Config, ConfigFactory}
 import org.slf4j.LoggerFactory
 
 object RpcService extends App {
   var logger = LoggerFactory.getLogger(this.getClass)
 
-  private val interceptorInjector = Guice.createInjector(new AbstractModule() {
-    override def configure() {
-      val map: util.HashMap[String, String] = ConfigHelper.configMap
-      Names.bindProperties(binder(), map)
-      bind(classOf[RedisClientTemplate]).to(classOf[RedisClientTemplateImpl]).asEagerSingleton()
-      bind(classOf[CacheInterceptor]).to(classOf[CacheInterceptorImpl]).asEagerSingleton()
-    }
-  })
+  private val config: Config = ConfigFactory.load()
+
+  var redisClientTemplate: RedisClientTemplate = new RedisClientTemplateImpl(config.getString("redis.shards"),
+    config.getInt("redis.shard.connection.timeout"),
+    config.getInt("redis.min.idle"),
+    config.getInt("redis.max.idle"),
+    config.getInt("redis.max.total"),
+    config.getInt("redis.max.wait.millis"),
+    config.getBoolean("redis.test.on.borrow")
+  )
+  redisClientTemplate.init
+  var cacheInterceptor:CacheInterceptor = new CacheInterceptorImpl(redisClientTemplate)
 
   private val injector = Guice.createInjector(new AbstractModule() {
     override def configure() {
@@ -34,12 +39,10 @@ object RpcService extends App {
       bind(classOf[EdService]).to(classOf[EdServiceImpl]).asEagerSingleton()
       bind(classOf[ObjectImpl]).to(classOf[EdServiceEndpointImpl]).asEagerSingleton()
       bind(classOf[IceServerTemplate]).to(classOf[IceServerTemplateImpl]).asEagerSingleton()
-      bind(classOf[CacheInterceptor]).to(classOf[CacheInterceptorImpl]).asEagerSingleton()
       bind(classOf[RedisClientTemplate]).to(classOf[RedisClientTemplateImpl]).asEagerSingleton()
-      bindInterceptor(Matchers.any(), Matchers.annotatedWith(classOf[ServiceCache]), interceptorInjector.getInstance(classOf[CacheInterceptor]))
+      bindInterceptor(Matchers.any(), Matchers.annotatedWith(classOf[ServiceCache]), cacheInterceptor)
     }
   })
 
   injector.getInstance(classOf[IceServerTemplate]).startServer
-  injector.getInstance(classOf[RedisClientTemplate]).init
 }

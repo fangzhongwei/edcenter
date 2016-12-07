@@ -1,6 +1,6 @@
 package com.lawsofnature.edcenter.repo
 
-import com.lawsofnatrue.common.cache.anno.ServiceCache
+import com.lawsofnatrue.common.cache.anno.{CacheKey, ServiceCache}
 import com.lawsofnatrue.common.cache.enumeration.CacheMethod
 import com.lawsofnature.connection.{DBComponent, MySQLDBImpl}
 
@@ -21,7 +21,7 @@ trait EDecryptRepository extends Tables {
     }, Duration.Inf)
 
   @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-t:", expireSeconds = -1)
-  def getEncryptedData(ticket: String): TmEncryptedDataRow =
+  def getEncryptedData(@CacheKey ticket: String): TmEncryptedDataRow =
     Await.result(db.run {
       TmEncryptedData.filter(_.ticket === ticket).result.headOption
     }, Duration.Inf) match {
@@ -29,8 +29,8 @@ trait EDecryptRepository extends Tables {
       case None => null
     }
 
-  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = -1)
-  def getEncryptedDataBySha(sha: String): TmEncryptedDataRow =
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = 30 * 24 * 60 * 60)
+  def getEncryptedDataBySha(@CacheKey sha: String): TmEncryptedDataRow =
     Await.result(db.run {
       TmEncryptedData.filter(_.hash === sha).result.headOption
     }, Duration.Inf) match {
