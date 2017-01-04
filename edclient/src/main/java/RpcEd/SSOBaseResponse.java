@@ -24,11 +24,11 @@ public class SSOBaseResponse extends Ice.ObjectImpl
 {
     public SSOBaseResponse()
     {
+        code = "";
     }
 
-    public SSOBaseResponse(boolean success, int code)
+    public SSOBaseResponse(String code)
     {
-        this.success = success;
         this.code = code;
     }
 
@@ -96,22 +96,18 @@ public class SSOBaseResponse extends Ice.ObjectImpl
     protected void __writeImpl(IceInternal.BasicStream __os)
     {
         __os.startWriteSlice(ice_staticId(), -1, true);
-        __os.writeBool(success);
-        __os.writeInt(code);
+        __os.writeString(code);
         __os.endWriteSlice();
     }
 
     protected void __readImpl(IceInternal.BasicStream __is)
     {
         __is.startReadSlice();
-        success = __is.readBool();
-        code = __is.readInt();
+        code = __is.readString();
         __is.endReadSlice();
     }
 
-    public boolean success;
-
-    public int code;
+    public String code;
 
     public SSOBaseResponse
     clone()
@@ -119,5 +115,5 @@ public class SSOBaseResponse extends Ice.ObjectImpl
         return (SSOBaseResponse)super.clone();
     }
 
-    public static final long serialVersionUID = 4382320358686027142L;
+    public static final long serialVersionUID = 6019045107823516066L;
 }

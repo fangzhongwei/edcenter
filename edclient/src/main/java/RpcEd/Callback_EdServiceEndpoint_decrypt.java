@@ -21,7 +21,7 @@
 package RpcEd;
 
 public abstract class Callback_EdServiceEndpoint_decrypt
-    extends IceInternal.TwowayCallback implements Ice.TwowayCallbackArg1<RpcEd.DecryptResponse>
+    extends IceInternal.TwowayCallback implements Ice.TwowayCallbackArg1<DecryptResponse>
 {
     public final void __completed(Ice.AsyncResult __result)
     {

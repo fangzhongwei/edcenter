@@ -28,9 +28,9 @@ public class DecryptResponse extends SSOBaseResponse
         raw = "";
     }
 
-    public DecryptResponse(boolean success, int code, String raw)
+    public DecryptResponse(String code, String raw)
     {
-        super(success, code);
+        super(code);
         this.raw = raw;
     }
 

@@ -300,7 +300,7 @@ public final class EdServiceEndpointPrxHelper extends Ice.ObjectPrxHelperBase im
                                           IceInternal.Functional_BoolCallback __sentCb)
     {
         return begin_encrypt(traceId, raw, __ctx, __explicitCtx, __synchronous, 
-                             new IceInternal.Functional_TwowayCallbackArg1<RpcEd.EncryptResponse>(__responseCb, __exceptionCb, __sentCb)
+                             new IceInternal.Functional_TwowayCallbackArg1<EncryptResponse>(__responseCb, __exceptionCb, __sentCb)
                                  {
                                      public final void __completed(Ice.AsyncResult __result)
                                      {

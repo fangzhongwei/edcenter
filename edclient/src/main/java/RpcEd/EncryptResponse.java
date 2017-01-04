@@ -28,9 +28,9 @@ public class EncryptResponse extends SSOBaseResponse
         ticket = "";
     }
 
-    public EncryptResponse(boolean success, int code, String ticket)
+    public EncryptResponse(String code, String ticket)
     {
-        super(success, code);
+        super(code);
         this.ticket = ticket;
     }
 
