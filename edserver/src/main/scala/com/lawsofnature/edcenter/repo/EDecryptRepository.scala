@@ -29,7 +29,7 @@ trait EDecryptRepository extends Tables {
       case None => null
     }
 
-  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = 30 * 24 * 60 * 60)
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = 2592000)//90 days
   def getEncryptedDataBySha(@CacheKey sha: String): TmEncryptedDataRow =
     Await.result(db.run {
       TmEncryptedData.filter(_.hash === sha).result.headOption
