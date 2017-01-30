@@ -1,4 +1,4 @@
-package com.lawsofnature.edcenter.repo
+package com.jxjxgo.edcenter.repo
 
 import com.lawsofnature.connection.MySQLDBImpl
 

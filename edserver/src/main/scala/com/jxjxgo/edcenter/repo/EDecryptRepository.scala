@@ -1,4 +1,4 @@
-package com.lawsofnature.edcenter.repo
+package com.jxjxgo.edcenter.repo
 
 import com.lawsofnatrue.common.cache.anno.{CacheKey, ServiceCache}
 import com.lawsofnatrue.common.cache.enumeration.CacheMethod

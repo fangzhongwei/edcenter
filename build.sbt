@@ -1,6 +1,6 @@
 lazy val commonSettings = Seq(
   javacOptions ++= Seq("-encoding", "UTF-8"),
-  organization := "com.lawsofnature.edcenter",
+  organization := "com.jxjxgo.edcenter",
   version := "1.0",
   scalaVersion := "2.11.8",
   libraryDependencies ++= Seq(
@@ -8,6 +8,7 @@ lazy val commonSettings = Seq(
     "net.codingwell" % "scala-guice_2.11" % "4.1.0",
     "org.scala-lang" % "scala-library" % "2.11.8",
     "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.8.4",
+    "com.jxjxgo.common" % "common-finagle-thrift_2.11" % "1.0",
     "com.lawsofnature.common" % "common-edecrypt_2.11" % "1.0"
   )
 )
@@ -15,7 +16,6 @@ lazy val commonSettings = Seq(
 lazy val edclient = (project in file("edclient")).settings(commonSettings: _*).settings(
   name := """edclient""",
   libraryDependencies ++= Seq(
-    "com.lawsofnature.common" % "common-ice_2.11" % "1.0"
   )
 )
 

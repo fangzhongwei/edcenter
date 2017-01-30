@@ -1,15 +1,15 @@
-package com.lawsofnature.edcenter.service
+package com.jxjxgo.edcenter.service
 
 import java.sql.Timestamp
 import javax.inject.Inject
 
-import RpcEd.{DecryptResponse, EncryptResponse}
+import com.jxjxgo.edcenter.repo.{EDecryptRepository, TmEncryptedDataRow}
 import com.lawsofnature.common.edecrypt.rsa.{EDecryptUtils, RSAHexUtils}
 import com.lawsofnature.common.exception.ErrorCode
 import com.lawsofnature.common.helper.TokenHelper
-import com.lawsofnature.edcenter.repo.{EDecryptRepository, TmEncryptedDataRow}
 import com.typesafe.config.ConfigFactory
 import org.apache.commons.codec.digest.DigestUtils
+import thrift.{DecryptResponse, EncryptResponse}
 
 /**
   * Created by fangzhongwei on 2016/12/5.
@@ -38,17 +38,17 @@ class EdServiceImpl @Inject()(eDecryptRepository: EDecryptRepository) extends Ed
     existedEncryptedDataRow == null match {
       case true =>
         eDecryptRepository.saveEncryptedData(TmEncryptedDataRow(ticket, sha, encryptTypeRsa, encryptedThreeDesKey, encryptedData, 1, new Timestamp(System.currentTimeMillis())))
-        new EncryptResponse("0", ticket)
+        EncryptResponse("0", ticket)
       case false =>
-        new EncryptResponse("0", existedEncryptedDataRow.ticket)
+        EncryptResponse("0", existedEncryptedDataRow.ticket)
     }
   }
 
   override def decrypt(traceId: String, ticket: String): DecryptResponse = {
     val encryptedDataRow: TmEncryptedDataRow = eDecryptRepository.getEncryptedData(ticket)
     encryptedDataRow == null match {
-      case false => new DecryptResponse("0", EDecryptUtils.decrypt(encryptedDataRow.encryptData, encryptedDataRow.encryptKey, rasPrivateKey))
-      case true => new DecryptResponse(ErrorCode.EC_ED_TICKET_NOT_EXISTS.getCode, "")
+      case false => DecryptResponse("0", EDecryptUtils.decrypt(encryptedDataRow.encryptData, encryptedDataRow.encryptKey, rasPrivateKey))
+      case true => DecryptResponse(ErrorCode.EC_ED_TICKET_NOT_EXISTS.getCode, "")
     }
   }
 }
