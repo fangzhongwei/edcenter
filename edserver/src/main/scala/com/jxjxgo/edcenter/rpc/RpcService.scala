@@ -2,15 +2,15 @@ package com.jxjxgo.edcenter.rpc
 
 import java.util
 
-import Ice.ObjectImpl
 import com.google.inject.matcher.Matchers
 import com.google.inject.name.Names
 import com.google.inject.{AbstractModule, Guice}
 import com.jxjxgo.edcenter.repo.{EDecryptRepository, EDecryptRepositoryImpl}
 import com.jxjxgo.edcenter.service.{EdService, EdServiceImpl}
+import com.jxjxgo.scrooge.thrift.template.{ScroogeThriftServerTemplate, ScroogeThriftServerTemplateImpl}
 import com.lawsofnatrue.common.cache.anno.ServiceCache
 import com.lawsofnatrue.common.cache.interceptor.{CacheInterceptor, CacheInterceptorImpl}
-import com.lawsofnatrue.common.ice.{ConfigHelper, IceServerTemplate, IceServerTemplateImpl}
+import com.lawsofnatrue.common.ice.{ConfigHelper, IceServerTemplate}
 import com.lawsofnature.common.redis.{RedisClientTemplate, RedisClientTemplateImpl}
 import com.twitter.util.Future
 import com.typesafe.config.{Config, ConfigFactory}
@@ -40,7 +40,7 @@ object RpcService extends App {
       bind(classOf[EDecryptRepository]).to(classOf[EDecryptRepositoryImpl]).asEagerSingleton()
       bind(classOf[EdService]).to(classOf[EdServiceImpl]).asEagerSingleton()
       bind(classOf[EdServiceEndpoint[Future]]).to(classOf[EdServiceEndpointImpl]).asEagerSingleton()
-      bind(classOf[IceServerTemplate]).to(classOf[IceServerTemplateImpl]).asEagerSingleton()
+      bind(classOf[ScroogeThriftServerTemplate]).to(classOf[ScroogeThriftServerTemplateImpl[EdServiceEndpoint[Future]]]).asEagerSingleton()
       bind(classOf[RedisClientTemplate]).to(classOf[RedisClientTemplateImpl]).asEagerSingleton()
       bindInterceptor(Matchers.any(), Matchers.annotatedWith(classOf[ServiceCache]), cacheInterceptor)
     }
