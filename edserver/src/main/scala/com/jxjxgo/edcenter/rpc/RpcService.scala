@@ -16,6 +16,7 @@ import com.twitter.util.Future
 import com.typesafe.config.{Config, ConfigFactory}
 import org.slf4j.LoggerFactory
 import com.jxjxgo.edcenter.rpc.domain.EdServiceEndpoint
+import com.twitter.scrooge.ThriftService
 
 object RpcService extends App {
   var logger = LoggerFactory.getLogger(this.getClass)
@@ -39,12 +40,13 @@ object RpcService extends App {
       Names.bindProperties(binder(), map)
       bind(classOf[EDecryptRepository]).to(classOf[EDecryptRepositoryImpl]).asEagerSingleton()
       bind(classOf[EdService]).to(classOf[EdServiceImpl]).asEagerSingleton()
-      bind(classOf[EdServiceEndpoint[Future]]).to(classOf[EdServiceEndpointImpl]).asEagerSingleton()
-      bind(classOf[ScroogeThriftServerTemplate]).to(classOf[ScroogeThriftServerTemplateImpl[EdServiceEndpoint[Future]]]).asEagerSingleton()
+      bind(classOf[ThriftService]).to(classOf[EdServiceEndpointImpl]).asEagerSingleton()
+      bind(classOf[ScroogeThriftServerTemplate]).to(classOf[ScroogeThriftServerTemplateImpl]).asEagerSingleton()
       bind(classOf[RedisClientTemplate]).to(classOf[RedisClientTemplateImpl]).asEagerSingleton()
       bindInterceptor(Matchers.any(), Matchers.annotatedWith(classOf[ServiceCache]), cacheInterceptor)
     }
   })
 
+  println("inject success")
   injector.getInstance(classOf[ScroogeThriftServerTemplate]).init
 }
