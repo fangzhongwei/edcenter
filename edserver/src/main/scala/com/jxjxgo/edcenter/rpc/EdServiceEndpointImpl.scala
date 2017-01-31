@@ -4,7 +4,7 @@ import javax.inject.Inject
 
 import com.jxjxgo.edcenter.service.EdService
 import com.twitter.util.Future
-import thrift.{DecryptResponse, EdServiceEndpoint, EncryptResponse}
+import com.jxjxgo.edcenter.rpc.domain.{DecryptResponse, EdServiceEndpoint, EncryptResponse}
 
 /**
   * Created by fangzhongwei on 2016/12/5.

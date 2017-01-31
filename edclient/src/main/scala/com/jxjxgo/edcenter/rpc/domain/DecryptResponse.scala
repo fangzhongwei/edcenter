@@ -4,7 +4,7 @@
  *   rev: 014664de600267b36809bbc85225e26aec286216
  *   built at: 20160203-205352
  */
-package thrift
+package com.jxjxgo.edcenter.rpc.domain
 
 import com.twitter.scrooge.{
   LazyTProtocol,
@@ -22,13 +22,13 @@ import scala.collection.mutable.{
 import scala.collection.{Map, Set}
 
 
-object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
+object DecryptResponse extends ThriftStructCodec3[DecryptResponse] {
   private val NoPassthroughFields = immutable$Map.empty[Short, TFieldBlob]
-  val Struct = new TStruct("EncryptResponse")
+  val Struct = new TStruct("DecryptResponse")
   val CodeField = new TField("code", TType.STRING, 1)
   val CodeFieldManifest = implicitly[Manifest[String]]
-  val TicketField = new TField("ticket", TType.STRING, 2)
-  val TicketFieldManifest = implicitly[Manifest[String]]
+  val RawField = new TField("raw", TType.STRING, 2)
+  val RawFieldManifest = implicitly[Manifest[String]]
 
   /**
    * Field information in declaration order.
@@ -45,10 +45,10 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
       immutable$Map.empty[String, String]
     ),
     new ThriftStructFieldInfo(
-      TicketField,
+      RawField,
       false,
       false,
-      TicketFieldManifest,
+      RawFieldManifest,
       _root_.scala.None,
       _root_.scala.None,
       immutable$Map.empty[String, String],
@@ -62,31 +62,31 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
   /**
    * Checks that all required fields are non-null.
    */
-  def validate(_item: EncryptResponse): Unit = {
+  def validate(_item: DecryptResponse): Unit = {
   }
 
-  def withoutPassthroughFields(original: EncryptResponse): EncryptResponse =
+  def withoutPassthroughFields(original: DecryptResponse): DecryptResponse =
     new Immutable(
       code =
         {
           val field = original.code
           field
         },
-      ticket =
+      raw =
         {
-          val field = original.ticket
+          val field = original.raw
           field
         }
     )
 
-  override def encode(_item: EncryptResponse, _oproto: TProtocol): Unit = {
+  override def encode(_item: DecryptResponse, _oproto: TProtocol): Unit = {
     _item.write(_oproto)
   }
 
-  private[this] def lazyDecode(_iprot: LazyTProtocol): EncryptResponse = {
+  private[this] def lazyDecode(_iprot: LazyTProtocol): DecryptResponse = {
 
     var codeOffset: Int = -1
-    var ticketOffset: Int = -1
+    var rawOffset: Int = -1
 
     var _passthroughFields: Builder[(Short, TFieldBlob), immutable$Map[Short, TFieldBlob]] = null
     var _done = false
@@ -116,12 +116,12 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
           case 2 =>
             _field.`type` match {
               case TType.STRING =>
-                ticketOffset = _iprot.offsetSkipString
+                rawOffset = _iprot.offsetSkipString
     
               case _actualType =>
                 val _expectedType = TType.STRING
                 throw new TProtocolException(
-                  "Received wrong type for field 'ticket' (expected=%s, actual=%s).".format(
+                  "Received wrong type for field 'raw' (expected=%s, actual=%s).".format(
                     ttypeToString(_expectedType),
                     ttypeToString(_actualType)
                   )
@@ -143,7 +143,7 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
       _start_offset,
       _iprot.offset,
       codeOffset,
-      ticketOffset,
+      rawOffset,
       if (_passthroughFields == null)
         NoPassthroughFields
       else
@@ -151,15 +151,15 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
     )
   }
 
-  override def decode(_iprot: TProtocol): EncryptResponse =
+  override def decode(_iprot: TProtocol): DecryptResponse =
     _iprot match {
       case i: LazyTProtocol => lazyDecode(i)
       case i => eagerDecode(i)
     }
 
-  private[this] def eagerDecode(_iprot: TProtocol): EncryptResponse = {
-    var code: String = null
-    var ticket: String = null
+  private[this] def eagerDecode(_iprot: TProtocol): DecryptResponse = {
+    var code: String = ""
+    var raw: String = ""
     var _passthroughFields: Builder[(Short, TFieldBlob), immutable$Map[Short, TFieldBlob]] = null
     var _done = false
 
@@ -186,11 +186,11 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
           case 2 =>
             _field.`type` match {
               case TType.STRING =>
-                ticket = readTicketValue(_iprot)
+                raw = readRawValue(_iprot)
               case _actualType =>
                 val _expectedType = TType.STRING
                 throw new TProtocolException(
-                  "Received wrong type for field 'ticket' (expected=%s, actual=%s).".format(
+                  "Received wrong type for field 'raw' (expected=%s, actual=%s).".format(
                     ttypeToString(_expectedType),
                     ttypeToString(_actualType)
                   )
@@ -208,7 +208,7 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
 
     new Immutable(
       code,
-      ticket,
+      raw,
       if (_passthroughFields == null)
         NoPassthroughFields
       else
@@ -217,15 +217,15 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
   }
 
   def apply(
-    code: String,
-    ticket: String
-  ): EncryptResponse =
+    code: String = "",
+    raw: String = ""
+  ): DecryptResponse =
     new Immutable(
       code,
-      ticket
+      raw
     )
 
-  def unapply(_item: EncryptResponse): _root_.scala.Option[scala.Product2[String, String]] = _root_.scala.Some(_item)
+  def unapply(_item: DecryptResponse): _root_.scala.Option[scala.Product2[String, String]] = _root_.scala.Some(_item)
 
 
   @inline private def readCodeValue(_iprot: TProtocol): String = {
@@ -242,43 +242,43 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
     _oprot.writeString(code_item)
   }
 
-  @inline private def readTicketValue(_iprot: TProtocol): String = {
+  @inline private def readRawValue(_iprot: TProtocol): String = {
     _iprot.readString()
   }
 
-  @inline private def writeTicketField(ticket_item: String, _oprot: TProtocol): Unit = {
-    _oprot.writeFieldBegin(TicketField)
-    writeTicketValue(ticket_item, _oprot)
+  @inline private def writeRawField(raw_item: String, _oprot: TProtocol): Unit = {
+    _oprot.writeFieldBegin(RawField)
+    writeRawValue(raw_item, _oprot)
     _oprot.writeFieldEnd()
   }
 
-  @inline private def writeTicketValue(ticket_item: String, _oprot: TProtocol): Unit = {
-    _oprot.writeString(ticket_item)
+  @inline private def writeRawValue(raw_item: String, _oprot: TProtocol): Unit = {
+    _oprot.writeString(raw_item)
   }
 
 
-  object Immutable extends ThriftStructCodec3[EncryptResponse] {
-    override def encode(_item: EncryptResponse, _oproto: TProtocol): Unit = { _item.write(_oproto) }
-    override def decode(_iprot: TProtocol): EncryptResponse = EncryptResponse.decode(_iprot)
-    override lazy val metaData: ThriftStructMetaData[EncryptResponse] = EncryptResponse.metaData
+  object Immutable extends ThriftStructCodec3[DecryptResponse] {
+    override def encode(_item: DecryptResponse, _oproto: TProtocol): Unit = { _item.write(_oproto) }
+    override def decode(_iprot: TProtocol): DecryptResponse = DecryptResponse.decode(_iprot)
+    override lazy val metaData: ThriftStructMetaData[DecryptResponse] = DecryptResponse.metaData
   }
 
   /**
-   * The default read-only implementation of EncryptResponse.  You typically should not need to
-   * directly reference this class; instead, use the EncryptResponse.apply method to construct
+   * The default read-only implementation of DecryptResponse.  You typically should not need to
+   * directly reference this class; instead, use the DecryptResponse.apply method to construct
    * new instances.
    */
   class Immutable(
       val code: String,
-      val ticket: String,
+      val raw: String,
       override val _passthroughFields: immutable$Map[Short, TFieldBlob])
-    extends EncryptResponse {
+    extends DecryptResponse {
     def this(
-      code: String,
-      ticket: String
+      code: String = "",
+      raw: String = ""
     ) = this(
       code,
-      ticket,
+      raw,
       Map.empty
     )
   }
@@ -293,9 +293,9 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
       _start_offset: Int,
       _end_offset: Int,
       codeOffset: Int,
-      ticketOffset: Int,
+      rawOffset: Int,
       override val _passthroughFields: immutable$Map[Short, TFieldBlob])
-    extends EncryptResponse {
+    extends DecryptResponse {
 
     override def write(_oprot: TProtocol): Unit = {
       _oprot match {
@@ -306,15 +306,15 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
 
     lazy val code: String =
       if (codeOffset == -1)
-        null
+        ""
       else {
         _proto.decodeString(_buf, codeOffset)
       }
-    lazy val ticket: String =
-      if (ticketOffset == -1)
-        null
+    lazy val raw: String =
+      if (rawOffset == -1)
+        ""
       else {
-        _proto.decodeString(_buf, ticketOffset)
+        _proto.decodeString(_buf, rawOffset)
       }
 
     /**
@@ -332,32 +332,32 @@ object EncryptResponse extends ThriftStructCodec3[EncryptResponse] {
   }
 
   /**
-   * This Proxy trait allows you to extend the EncryptResponse trait with additional state or
-   * behavior and implement the read-only methods from EncryptResponse using an underlying
+   * This Proxy trait allows you to extend the DecryptResponse trait with additional state or
+   * behavior and implement the read-only methods from DecryptResponse using an underlying
    * instance.
    */
-  trait Proxy extends EncryptResponse {
-    protected def _underlying_EncryptResponse: EncryptResponse
-    override def code: String = _underlying_EncryptResponse.code
-    override def ticket: String = _underlying_EncryptResponse.ticket
-    override def _passthroughFields = _underlying_EncryptResponse._passthroughFields
+  trait Proxy extends DecryptResponse {
+    protected def _underlying_DecryptResponse: DecryptResponse
+    override def code: String = _underlying_DecryptResponse.code
+    override def raw: String = _underlying_DecryptResponse.raw
+    override def _passthroughFields = _underlying_DecryptResponse._passthroughFields
   }
 }
 
-trait EncryptResponse
+trait DecryptResponse
   extends ThriftStruct
   with scala.Product2[String, String]
   with java.io.Serializable
 {
-  import EncryptResponse._
+  import DecryptResponse._
 
   def code: String
-  def ticket: String
+  def raw: String
 
   def _passthroughFields: immutable$Map[Short, TFieldBlob] = immutable$Map.empty
 
   def _1 = code
-  def _2 = ticket
+  def _2 = raw
 
 
   /**
@@ -376,14 +376,14 @@ trait EncryptResponse
             case 1 =>
               if (code ne null) {
                 writeCodeValue(code, _oprot)
-                _root_.scala.Some(EncryptResponse.CodeField)
+                _root_.scala.Some(DecryptResponse.CodeField)
               } else {
                 _root_.scala.None
               }
             case 2 =>
-              if (ticket ne null) {
-                writeTicketValue(ticket, _oprot)
-                _root_.scala.Some(EncryptResponse.TicketField)
+              if (raw ne null) {
+                writeRawValue(raw, _oprot)
+                _root_.scala.Some(DecryptResponse.RawField)
               } else {
                 _root_.scala.None
               }
@@ -412,20 +412,20 @@ trait EncryptResponse
    * is unknown and passthrough fields are enabled, then the blob will be stored in
    * _passthroughFields.
    */
-  def setField(_blob: TFieldBlob): EncryptResponse = {
+  def setField(_blob: TFieldBlob): DecryptResponse = {
     var code: String = this.code
-    var ticket: String = this.ticket
+    var raw: String = this.raw
     var _passthroughFields = this._passthroughFields
     _blob.id match {
       case 1 =>
         code = readCodeValue(_blob.read)
       case 2 =>
-        ticket = readTicketValue(_blob.read)
+        raw = readRawValue(_blob.read)
       case _ => _passthroughFields += (_blob.id -> _blob)
     }
     new Immutable(
       code,
-      ticket,
+      raw,
       _passthroughFields
     )
   }
@@ -435,20 +435,20 @@ trait EncryptResponse
    * known, it is reverted to its default value; if the field is unknown, it is removed
    * from the passthroughFields map, if present.
    */
-  def unsetField(_fieldId: Short): EncryptResponse = {
+  def unsetField(_fieldId: Short): DecryptResponse = {
     var code: String = this.code
-    var ticket: String = this.ticket
+    var raw: String = this.raw
 
     _fieldId match {
       case 1 =>
-        code = null
+        code = ""
       case 2 =>
-        ticket = null
+        raw = ""
       case _ =>
     }
     new Immutable(
       code,
-      ticket,
+      raw,
       _passthroughFields - _fieldId
     )
   }
@@ -458,16 +458,16 @@ trait EncryptResponse
    * known, it is reverted to its default value; if the field is unknown, it is removed
    * from the passthroughFields map, if present.
    */
-  def unsetCode: EncryptResponse = unsetField(1)
+  def unsetCode: DecryptResponse = unsetField(1)
 
-  def unsetTicket: EncryptResponse = unsetField(2)
+  def unsetRaw: DecryptResponse = unsetField(2)
 
 
   override def write(_oprot: TProtocol): Unit = {
-    EncryptResponse.validate(this)
+    DecryptResponse.validate(this)
     _oprot.writeStructBegin(Struct)
     if (code ne null) writeCodeField(code, _oprot)
-    if (ticket ne null) writeTicketField(ticket, _oprot)
+    if (raw ne null) writeRawField(raw, _oprot)
     if (_passthroughFields.nonEmpty) {
       _passthroughFields.values.foreach { _.write(_oprot) }
     }
@@ -477,21 +477,21 @@ trait EncryptResponse
 
   def copy(
     code: String = this.code,
-    ticket: String = this.ticket,
+    raw: String = this.raw,
     _passthroughFields: immutable$Map[Short, TFieldBlob] = this._passthroughFields
-  ): EncryptResponse =
+  ): DecryptResponse =
     new Immutable(
       code,
-      ticket,
+      raw,
       _passthroughFields
     )
 
-  override def canEqual(other: Any): Boolean = other.isInstanceOf[EncryptResponse]
+  override def canEqual(other: Any): Boolean = other.isInstanceOf[DecryptResponse]
 
   override def equals(other: Any): Boolean =
     canEqual(other) &&
       _root_.scala.runtime.ScalaRunTime._equals(this, other) &&
-      _passthroughFields == other.asInstanceOf[EncryptResponse]._passthroughFields
+      _passthroughFields == other.asInstanceOf[DecryptResponse]._passthroughFields
 
   override def hashCode: Int = _root_.scala.runtime.ScalaRunTime._hashCode(this)
 
@@ -502,9 +502,9 @@ trait EncryptResponse
 
   override def productElement(n: Int): Any = n match {
     case 0 => this.code
-    case 1 => this.ticket
+    case 1 => this.raw
     case _ => throw new IndexOutOfBoundsException(n.toString)
   }
 
-  override def productPrefix: String = "EncryptResponse"
+  override def productPrefix: String = "DecryptResponse"
 }

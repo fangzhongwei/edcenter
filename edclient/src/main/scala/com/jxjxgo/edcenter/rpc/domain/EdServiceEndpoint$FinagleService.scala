@@ -4,7 +4,7 @@
  *   rev: 014664de600267b36809bbc85225e26aec286216
  *   built at: 20160203-205352
  */
-package thrift
+package com.jxjxgo.edcenter.rpc.domain
 
 import com.twitter.finagle.Thrift
 import com.twitter.finagle.stats.{NullStatsReceiver, StatsReceiver}
@@ -146,7 +146,7 @@ class EdServiceEndpoint$FinagleService(
         iface.encrypt(args.traceId, args.raw)
       } catch {
         case e: Exception => Future.exception(e)
-      }).flatMap { value: thrift.EncryptResponse =>
+      }).flatMap { value: com.jxjxgo.edcenter.rpc.domain.EncryptResponse =>
         reply("encrypt", seqid, Encrypt.Result(success = Some(value)))
       }.rescue {
         case e => Future.exception(e)
@@ -180,7 +180,7 @@ class EdServiceEndpoint$FinagleService(
         iface.decrypt(args.traceId, args.ticket)
       } catch {
         case e: Exception => Future.exception(e)
-      }).flatMap { value: thrift.DecryptResponse =>
+      }).flatMap { value: com.jxjxgo.edcenter.rpc.domain.DecryptResponse =>
         reply("decrypt", seqid, Decrypt.Result(success = Some(value)))
       }.rescue {
         case e => Future.exception(e)

@@ -4,7 +4,7 @@
  *   rev: 014664de600267b36809bbc85225e26aec286216
  *   built at: 20160203-205352
  */
-package thrift
+package com.jxjxgo.edcenter.rpc.domain
 
 import com.twitter.scrooge.{
   LazyTProtocol,
@@ -32,9 +32,9 @@ import scala.language.higherKinds
 @javax.annotation.Generated(value = Array("com.twitter.scrooge.Compiler"))
 trait EdServiceEndpoint[+MM[_]] extends ThriftService {
   
-  def encrypt(traceId: String, raw: String): MM[thrift.EncryptResponse]
+  def encrypt(traceId: String, raw: String): MM[com.jxjxgo.edcenter.rpc.domain.EncryptResponse]
   
-  def decrypt(traceId: String, ticket: String): MM[thrift.DecryptResponse]
+  def decrypt(traceId: String, ticket: String): MM[com.jxjxgo.edcenter.rpc.domain.DecryptResponse]
 }
 
 
@@ -71,11 +71,11 @@ object EdServiceEndpoint { self =>
     extends EdServiceEndpoint[Future] {
     private[this] val __encrypt_service =
       ThriftServiceIface.resultFilter(self.Encrypt) andThen serviceIface.encrypt
-    def encrypt(traceId: String, raw: String): Future[thrift.EncryptResponse] =
+    def encrypt(traceId: String, raw: String): Future[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] =
       __encrypt_service(self.Encrypt.Args(traceId, raw))
     private[this] val __decrypt_service =
       ThriftServiceIface.resultFilter(self.Decrypt) andThen serviceIface.decrypt
-    def decrypt(traceId: String, ticket: String): Future[thrift.DecryptResponse] =
+    def decrypt(traceId: String, ticket: String): Future[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] =
       __decrypt_service(self.Decrypt.Args(traceId, ticket))
   }
 
@@ -319,13 +319,13 @@ object EdServiceEndpoint { self =>
       override def productPrefix: String = "Args"
     }
 
-    type SuccessType = thrift.EncryptResponse
+    type SuccessType = com.jxjxgo.edcenter.rpc.domain.EncryptResponse
     
     object Result extends ThriftStructCodec3[Result] {
       private val NoPassthroughFields = immutable$Map.empty[Short, TFieldBlob]
       val Struct = new TStruct("encrypt_result")
       val SuccessField = new TField("success", TType.STRUCT, 0)
-      val SuccessFieldManifest = implicitly[Manifest[thrift.EncryptResponse]]
+      val SuccessFieldManifest = implicitly[Manifest[com.jxjxgo.edcenter.rpc.domain.EncryptResponse]]
     
       /**
        * Field information in declaration order.
@@ -358,7 +358,7 @@ object EdServiceEndpoint { self =>
             {
               val field = original.success
               field.map { field =>
-                thrift.EncryptResponse.withoutPassthroughFields(field)
+                com.jxjxgo.edcenter.rpc.domain.EncryptResponse.withoutPassthroughFields(field)
               }
             }
         )
@@ -368,7 +368,7 @@ object EdServiceEndpoint { self =>
       }
     
       override def decode(_iprot: TProtocol): Result = {
-        var success: _root_.scala.Option[thrift.EncryptResponse] = _root_.scala.None
+        var success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] = _root_.scala.None
         var _passthroughFields: Builder[(Short, TFieldBlob), immutable$Map[Short, TFieldBlob]] = null
         var _done = false
     
@@ -412,26 +412,26 @@ object EdServiceEndpoint { self =>
       }
     
       def apply(
-        success: _root_.scala.Option[thrift.EncryptResponse] = _root_.scala.None
+        success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] = _root_.scala.None
       ): Result =
         new Result(
           success
         )
     
-      def unapply(_item: Result): _root_.scala.Option[_root_.scala.Option[thrift.EncryptResponse]] = _root_.scala.Some(_item.success)
+      def unapply(_item: Result): _root_.scala.Option[_root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse]] = _root_.scala.Some(_item.success)
     
     
-      @inline private def readSuccessValue(_iprot: TProtocol): thrift.EncryptResponse = {
-        thrift.EncryptResponse.decode(_iprot)
+      @inline private def readSuccessValue(_iprot: TProtocol): com.jxjxgo.edcenter.rpc.domain.EncryptResponse = {
+        com.jxjxgo.edcenter.rpc.domain.EncryptResponse.decode(_iprot)
       }
     
-      @inline private def writeSuccessField(success_item: thrift.EncryptResponse, _oprot: TProtocol): Unit = {
+      @inline private def writeSuccessField(success_item: com.jxjxgo.edcenter.rpc.domain.EncryptResponse, _oprot: TProtocol): Unit = {
         _oprot.writeFieldBegin(SuccessField)
         writeSuccessValue(success_item, _oprot)
         _oprot.writeFieldEnd()
       }
     
-      @inline private def writeSuccessValue(success_item: thrift.EncryptResponse, _oprot: TProtocol): Unit = {
+      @inline private def writeSuccessValue(success_item: com.jxjxgo.edcenter.rpc.domain.EncryptResponse, _oprot: TProtocol): Unit = {
         success_item.write(_oprot)
       }
     
@@ -439,15 +439,15 @@ object EdServiceEndpoint { self =>
     }
     
     class Result(
-        val success: _root_.scala.Option[thrift.EncryptResponse],
+        val success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse],
         val _passthroughFields: immutable$Map[Short, TFieldBlob])
-      extends ThriftResponse[thrift.EncryptResponse] with ThriftStruct
-      with scala.Product1[Option[thrift.EncryptResponse]]
+      extends ThriftResponse[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] with ThriftStruct
+      with scala.Product1[Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse]]
       with java.io.Serializable
     {
       import Result._
       def this(
-        success: _root_.scala.Option[thrift.EncryptResponse] = _root_.scala.None
+        success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] = _root_.scala.None
       ) = this(
         success,
         Map.empty
@@ -455,7 +455,7 @@ object EdServiceEndpoint { self =>
     
       def _1 = success
     
-      def successField: Option[thrift.EncryptResponse] = success
+      def successField: Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] = success
       def exceptionFields: Iterable[Option[com.twitter.scrooge.ThriftException]] = Seq()
     
     
@@ -471,7 +471,7 @@ object EdServiceEndpoint { self =>
       }
     
       def copy(
-        success: _root_.scala.Option[thrift.EncryptResponse] = this.success,
+        success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] = this.success,
         _passthroughFields: immutable$Map[Short, TFieldBlob] = this._passthroughFields
       ): Result =
         new Result(
@@ -501,7 +501,7 @@ object EdServiceEndpoint { self =>
       override def productPrefix: String = "Result"
     }
 
-    type FunctionType = Function1[Args,Future[thrift.EncryptResponse]]
+    type FunctionType = Function1[Args,Future[com.jxjxgo.edcenter.rpc.domain.EncryptResponse]]
     type ServiceType = com.twitter.finagle.Service[Args, Result]
 
     private[this] val toResult = (res: SuccessType) => Result(Some(res))
@@ -764,13 +764,13 @@ object EdServiceEndpoint { self =>
       override def productPrefix: String = "Args"
     }
 
-    type SuccessType = thrift.DecryptResponse
+    type SuccessType = com.jxjxgo.edcenter.rpc.domain.DecryptResponse
     
     object Result extends ThriftStructCodec3[Result] {
       private val NoPassthroughFields = immutable$Map.empty[Short, TFieldBlob]
       val Struct = new TStruct("decrypt_result")
       val SuccessField = new TField("success", TType.STRUCT, 0)
-      val SuccessFieldManifest = implicitly[Manifest[thrift.DecryptResponse]]
+      val SuccessFieldManifest = implicitly[Manifest[com.jxjxgo.edcenter.rpc.domain.DecryptResponse]]
     
       /**
        * Field information in declaration order.
@@ -803,7 +803,7 @@ object EdServiceEndpoint { self =>
             {
               val field = original.success
               field.map { field =>
-                thrift.DecryptResponse.withoutPassthroughFields(field)
+                com.jxjxgo.edcenter.rpc.domain.DecryptResponse.withoutPassthroughFields(field)
               }
             }
         )
@@ -813,7 +813,7 @@ object EdServiceEndpoint { self =>
       }
     
       override def decode(_iprot: TProtocol): Result = {
-        var success: _root_.scala.Option[thrift.DecryptResponse] = _root_.scala.None
+        var success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] = _root_.scala.None
         var _passthroughFields: Builder[(Short, TFieldBlob), immutable$Map[Short, TFieldBlob]] = null
         var _done = false
     
@@ -857,26 +857,26 @@ object EdServiceEndpoint { self =>
       }
     
       def apply(
-        success: _root_.scala.Option[thrift.DecryptResponse] = _root_.scala.None
+        success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] = _root_.scala.None
       ): Result =
         new Result(
           success
         )
     
-      def unapply(_item: Result): _root_.scala.Option[_root_.scala.Option[thrift.DecryptResponse]] = _root_.scala.Some(_item.success)
+      def unapply(_item: Result): _root_.scala.Option[_root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse]] = _root_.scala.Some(_item.success)
     
     
-      @inline private def readSuccessValue(_iprot: TProtocol): thrift.DecryptResponse = {
-        thrift.DecryptResponse.decode(_iprot)
+      @inline private def readSuccessValue(_iprot: TProtocol): com.jxjxgo.edcenter.rpc.domain.DecryptResponse = {
+        com.jxjxgo.edcenter.rpc.domain.DecryptResponse.decode(_iprot)
       }
     
-      @inline private def writeSuccessField(success_item: thrift.DecryptResponse, _oprot: TProtocol): Unit = {
+      @inline private def writeSuccessField(success_item: com.jxjxgo.edcenter.rpc.domain.DecryptResponse, _oprot: TProtocol): Unit = {
         _oprot.writeFieldBegin(SuccessField)
         writeSuccessValue(success_item, _oprot)
         _oprot.writeFieldEnd()
       }
     
-      @inline private def writeSuccessValue(success_item: thrift.DecryptResponse, _oprot: TProtocol): Unit = {
+      @inline private def writeSuccessValue(success_item: com.jxjxgo.edcenter.rpc.domain.DecryptResponse, _oprot: TProtocol): Unit = {
         success_item.write(_oprot)
       }
     
@@ -884,15 +884,15 @@ object EdServiceEndpoint { self =>
     }
     
     class Result(
-        val success: _root_.scala.Option[thrift.DecryptResponse],
+        val success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse],
         val _passthroughFields: immutable$Map[Short, TFieldBlob])
-      extends ThriftResponse[thrift.DecryptResponse] with ThriftStruct
-      with scala.Product1[Option[thrift.DecryptResponse]]
+      extends ThriftResponse[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] with ThriftStruct
+      with scala.Product1[Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse]]
       with java.io.Serializable
     {
       import Result._
       def this(
-        success: _root_.scala.Option[thrift.DecryptResponse] = _root_.scala.None
+        success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] = _root_.scala.None
       ) = this(
         success,
         Map.empty
@@ -900,7 +900,7 @@ object EdServiceEndpoint { self =>
     
       def _1 = success
     
-      def successField: Option[thrift.DecryptResponse] = success
+      def successField: Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] = success
       def exceptionFields: Iterable[Option[com.twitter.scrooge.ThriftException]] = Seq()
     
     
@@ -916,7 +916,7 @@ object EdServiceEndpoint { self =>
       }
     
       def copy(
-        success: _root_.scala.Option[thrift.DecryptResponse] = this.success,
+        success: _root_.scala.Option[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] = this.success,
         _passthroughFields: immutable$Map[Short, TFieldBlob] = this._passthroughFields
       ): Result =
         new Result(
@@ -946,7 +946,7 @@ object EdServiceEndpoint { self =>
       override def productPrefix: String = "Result"
     }
 
-    type FunctionType = Function1[Args,Future[thrift.DecryptResponse]]
+    type FunctionType = Function1[Args,Future[com.jxjxgo.edcenter.rpc.domain.DecryptResponse]]
     type ServiceType = com.twitter.finagle.Service[Args, Result]
 
     private[this] val toResult = (res: SuccessType) => Result(Some(res))
@@ -978,9 +978,9 @@ object EdServiceEndpoint { self =>
 
   trait FutureIface extends EdServiceEndpoint[Future] {
     
-    def encrypt(traceId: String, raw: String): Future[thrift.EncryptResponse]
+    def encrypt(traceId: String, raw: String): Future[com.jxjxgo.edcenter.rpc.domain.EncryptResponse]
     
-    def decrypt(traceId: String, ticket: String): Future[thrift.DecryptResponse]
+    def decrypt(traceId: String, ticket: String): Future[com.jxjxgo.edcenter.rpc.domain.DecryptResponse]
   }
 
   class FinagledClient(

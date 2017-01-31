@@ -4,7 +4,7 @@
  *   rev: 014664de600267b36809bbc85225e26aec286216
  *   built at: 20160203-205352
  */
-package thrift
+package com.jxjxgo.edcenter.rpc.domain
 
 import com.twitter.finagle.SourcedException
 import com.twitter.finagle.{service => ctfs}
@@ -105,10 +105,10 @@ class EdServiceEndpoint$FinagleClient(
     val FailuresScope = scopedStats.scope("encrypt").scope("failures")
   }
   
-  def encrypt(traceId: String, raw: String): Future[thrift.EncryptResponse] = {
+  def encrypt(traceId: String, raw: String): Future[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] = {
     __stats_encrypt.RequestsCounter.incr()
     val inputArgs = Encrypt.Args(traceId, raw)
-    val replyDeserializer: Array[Byte] => _root_.com.twitter.util.Try[thrift.EncryptResponse] =
+    val replyDeserializer: Array[Byte] => _root_.com.twitter.util.Try[com.jxjxgo.edcenter.rpc.domain.EncryptResponse] =
       response => {
         val result = decodeResponse(response, Encrypt.Result)
         val exception: Throwable =
@@ -122,7 +122,7 @@ class EdServiceEndpoint$FinagleClient(
           _root_.com.twitter.util.Throw(missingResult("encrypt"))
       }
   
-    val serdeCtx = new _root_.com.twitter.finagle.thrift.DeserializeCtx[thrift.EncryptResponse](inputArgs, replyDeserializer)
+    val serdeCtx = new _root_.com.twitter.finagle.thrift.DeserializeCtx[com.jxjxgo.edcenter.rpc.domain.EncryptResponse](inputArgs, replyDeserializer)
     _root_.com.twitter.finagle.context.Contexts.local.let(
       _root_.com.twitter.finagle.thrift.DeserializeCtx.Key,
       serdeCtx
@@ -156,10 +156,10 @@ class EdServiceEndpoint$FinagleClient(
     val FailuresScope = scopedStats.scope("decrypt").scope("failures")
   }
   
-  def decrypt(traceId: String, ticket: String): Future[thrift.DecryptResponse] = {
+  def decrypt(traceId: String, ticket: String): Future[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] = {
     __stats_decrypt.RequestsCounter.incr()
     val inputArgs = Decrypt.Args(traceId, ticket)
-    val replyDeserializer: Array[Byte] => _root_.com.twitter.util.Try[thrift.DecryptResponse] =
+    val replyDeserializer: Array[Byte] => _root_.com.twitter.util.Try[com.jxjxgo.edcenter.rpc.domain.DecryptResponse] =
       response => {
         val result = decodeResponse(response, Decrypt.Result)
         val exception: Throwable =
@@ -173,7 +173,7 @@ class EdServiceEndpoint$FinagleClient(
           _root_.com.twitter.util.Throw(missingResult("decrypt"))
       }
   
-    val serdeCtx = new _root_.com.twitter.finagle.thrift.DeserializeCtx[thrift.DecryptResponse](inputArgs, replyDeserializer)
+    val serdeCtx = new _root_.com.twitter.finagle.thrift.DeserializeCtx[com.jxjxgo.edcenter.rpc.domain.DecryptResponse](inputArgs, replyDeserializer)
     _root_.com.twitter.finagle.context.Contexts.local.let(
       _root_.com.twitter.finagle.thrift.DeserializeCtx.Key,
       serdeCtx
