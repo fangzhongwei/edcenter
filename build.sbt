@@ -7,6 +7,7 @@ lazy val commonSettings = Seq(
     "commons-codec" % "commons-codec" % "1.10",
     "net.codingwell" % "scala-guice_2.11" % "4.1.0",
     "org.scala-lang" % "scala-library" % "2.11.8",
+    "com.trueaccord.scalapb" % "scalapb-runtime_2.11" % "0.5.46",
     "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.8.4",
     "com.jxjxgo.common" % "common-finagle-thrift_2.11" % "1.0",
     "com.lawsofnature.common" % "common-edecrypt_2.11" % "1.0"
@@ -29,6 +30,7 @@ lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).s
     "com.jxjxgo.edcenter" % "edclient_2.11" % "1.0",
     "com.jxjxgo.common" % "common-utils_2.11" % "1.0",
     "com.lawsofnature.common" % "common-cache_2.11" % "1.0",
+    "com.lawsofnature.common" % "common-redis_2.11" % "1.0",
     "com.lawsofnature.common" % "common-error_2.11" % "1.0"
   )
 )

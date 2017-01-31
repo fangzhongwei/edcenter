@@ -1,5 +1,6 @@
 package com.jxjxgo.edcenter.repo
 
+import com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
 import com.lawsofnatrue.common.cache.anno.{CacheKey, ServiceCache}
 import com.lawsofnatrue.common.cache.enumeration.CacheMethod
 import com.lawsofnature.connection.{DBComponent, MySQLDBImpl}
@@ -15,13 +16,17 @@ trait EDecryptRepository extends Tables {
 
   import profile.api._
 
+  implicit def convert(r: TmEncryptedDataRow): EncryptedData = {
+    EncryptedData(r.ticket, r.hash, r.encryptType, r.encryptKey, r.encryptData, r.encryptVersion)
+  }
+
   def saveEncryptedData(tmEncryptedDataRow: TmEncryptedDataRow): Int =
     Await.result(db.run {
       TmEncryptedData += tmEncryptedDataRow
     }, Duration.Inf)
 
-  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-t:", expireSeconds = -1)
-  def getEncryptedData(@CacheKey ticket: String): TmEncryptedDataRow =
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-t:", expireSeconds = 2592000)
+  def getEncryptedData(@CacheKey ticket: String): EncryptedData =
     Await.result(db.run {
       TmEncryptedData.filter(_.ticket === ticket).result.headOption
     }, Duration.Inf) match {
@@ -29,8 +34,8 @@ trait EDecryptRepository extends Tables {
       case None => null
     }
 
-  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = 2592000)//90 days
-  def getEncryptedDataBySha(@CacheKey sha: String): TmEncryptedDataRow =
+  @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-s:", expireSeconds = 2592000) //90 days
+  def getEncryptedDataBySha(@CacheKey sha: String): EncryptedData =
     Await.result(db.run {
       TmEncryptedData.filter(_.hash === sha).result.headOption
     }, Duration.Inf) match {

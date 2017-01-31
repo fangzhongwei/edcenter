@@ -4,6 +4,7 @@ import java.sql.Timestamp
 import javax.inject.Inject
 
 import com.jxjxgo.common.helper.TokenHelper
+import com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
 import com.jxjxgo.edcenter.repo.{EDecryptRepository, TmEncryptedDataRow}
 import com.jxjxgo.edcenter.rpc.domain.{DecryptResponse, EncryptResponse}
 import com.lawsofnature.common.edecrypt.rsa.{EDecryptUtils, RSAHexUtils}
@@ -34,7 +35,7 @@ class EdServiceImpl @Inject()(eDecryptRepository: EDecryptRepository) extends Ed
     val ticket: String = eDecryptRepository.getNextTicket(PRE_)
     val sha: String = DigestUtils.sha256Hex(raw.getBytes(defaultCharset))
 
-    val existedEncryptedDataRow: TmEncryptedDataRow = eDecryptRepository.getEncryptedDataBySha(sha)
+    val existedEncryptedDataRow: EncryptedData = eDecryptRepository.getEncryptedDataBySha(sha)
     existedEncryptedDataRow == null match {
       case true =>
         eDecryptRepository.saveEncryptedData(TmEncryptedDataRow(ticket, sha, encryptTypeRsa, encryptedThreeDesKey, encryptedData, 1, new Timestamp(System.currentTimeMillis())))
@@ -45,7 +46,7 @@ class EdServiceImpl @Inject()(eDecryptRepository: EDecryptRepository) extends Ed
   }
 
   override def decrypt(traceId: String, ticket: String): DecryptResponse = {
-    val encryptedDataRow: TmEncryptedDataRow = eDecryptRepository.getEncryptedData(ticket)
+    val encryptedDataRow: EncryptedData = eDecryptRepository.getEncryptedData(ticket)
     encryptedDataRow == null match {
       case false => DecryptResponse("0", EDecryptUtils.decrypt(encryptedDataRow.encryptData, encryptedDataRow.encryptKey, rasPrivateKey))
       case true => DecryptResponse(ErrorCode.EC_ED_TICKET_NOT_EXISTS.getCode, "")
