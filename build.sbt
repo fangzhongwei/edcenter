@@ -10,7 +10,7 @@ lazy val commonSettings = Seq(
     "com.trueaccord.scalapb" % "scalapb-runtime_2.11" % "0.5.46",
     "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.8.4",
     "com.jxjxgo.common" % "common-finagle-thrift_2.11" % "1.0",
-    "com.lawsofnature.common" % "common-edecrypt_2.11" % "1.0"
+    "com.jxjxgo.common" % "common-edecrypt_2.11" % "1.0"
   )
 )
 
@@ -26,11 +26,11 @@ lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).s
     "mysql" % "mysql-connector-java" % "5.1.36",
     "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
     "com.typesafe.slick" %% "slick" % "3.2.0-M2",
-    "com.lawsofnature.common" % "common-mysql_2.11" % "1.0",
+    "com.jxjxgo.common" % "common-mysql_2.11" % "1.0",
     "com.jxjxgo.edcenter" % "edclient_2.11" % "1.0",
     "com.jxjxgo.common" % "common-utils_2.11" % "1.0",
-    "com.lawsofnature.common" % "common-cache_2.11" % "1.0",
-    "com.lawsofnature.common" % "common-redis_2.11" % "1.0",
-    "com.lawsofnature.common" % "common-error_2.11" % "1.0"
+    "com.jxjxgo.common" % "common-cache_2.11" % "1.0",
+    "com.jxjxgo.common" % "common-redis_2.11" % "1.0",
+    "com.jxjxgo.common" % "common-error_2.11" % "1.0"
   )
 )

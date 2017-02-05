@@ -1,6 +1,7 @@
 package com.jxjxgo.edcenter.repo
 
-import com.lawsofnature.connection.MySQLDBImpl
+import com.jxjxgo.mysql.connection.MySQLDBImpl
+import slick.profile
 
 /** Entity class storing rows of table TmEncryptedData
   *

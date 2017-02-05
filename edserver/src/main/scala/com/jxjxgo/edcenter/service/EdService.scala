@@ -3,19 +3,20 @@ package com.jxjxgo.edcenter.service
 import java.sql.Timestamp
 import javax.inject.Inject
 
+import com.jxjxgo.common.edecrypt.EDecryptUtils
+import com.jxjxgo.common.edecrypt.rsa.RSAHexUtils
+import com.jxjxgo.common.exception.ErrorCode
 import com.jxjxgo.common.helper.TokenHelper
 import com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
 import com.jxjxgo.edcenter.repo.{EDecryptRepository, TmEncryptedDataRow}
 import com.jxjxgo.edcenter.rpc.domain.{DecryptResponse, EncryptResponse}
-import com.lawsofnature.common.edecrypt.rsa.{EDecryptUtils, RSAHexUtils}
-import com.lawsofnature.common.exception.ErrorCode
 import com.typesafe.config.ConfigFactory
 import org.apache.commons.codec.digest.DigestUtils
 
 /**
   * Created by fangzhongwei on 2016/12/5.
   */
-trait EdService {
+trait  EdService {
   def encrypt(traceId: String, raw: String): EncryptResponse
 
   def decrypt(traceId: String, ticket: String): DecryptResponse

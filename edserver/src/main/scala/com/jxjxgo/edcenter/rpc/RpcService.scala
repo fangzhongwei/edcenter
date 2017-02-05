@@ -5,18 +5,16 @@ import java.util
 import com.google.inject.matcher.Matchers
 import com.google.inject.name.Names
 import com.google.inject.{AbstractModule, Guice}
+import com.jxjxgo.common.cache.anno.ServiceCache
+import com.jxjxgo.common.cache.interceptor.{CacheInterceptor, CacheInterceptorImpl}
 import com.jxjxgo.common.helper.ConfigHelper
+import com.jxjxgo.common.redis.{RedisClientTemplate, RedisClientTemplateImpl}
 import com.jxjxgo.edcenter.repo.{EDecryptRepository, EDecryptRepositoryImpl}
 import com.jxjxgo.edcenter.service.{EdService, EdServiceImpl}
 import com.jxjxgo.scrooge.thrift.template.{ScroogeThriftServerTemplate, ScroogeThriftServerTemplateImpl}
-import com.lawsofnatrue.common.cache.anno.ServiceCache
-import com.lawsofnatrue.common.cache.interceptor.{CacheInterceptor, CacheInterceptorImpl}
-import com.lawsofnature.common.redis.{RedisClientTemplate, RedisClientTemplateImpl}
-import com.twitter.util.Future
+import com.twitter.scrooge.ThriftService
 import com.typesafe.config.{Config, ConfigFactory}
 import org.slf4j.LoggerFactory
-import com.jxjxgo.edcenter.rpc.domain.EdServiceEndpoint
-import com.twitter.scrooge.ThriftService
 
 object RpcService extends App {
   var logger = LoggerFactory.getLogger(this.getClass)
@@ -47,6 +45,5 @@ object RpcService extends App {
     }
   })
 
-  println("inject success")
   injector.getInstance(classOf[ScroogeThriftServerTemplate]).init
 }

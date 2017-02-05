@@ -1,9 +1,9 @@
 package com.jxjxgo.edcenter.repo
 
+import com.jxjxgo.common.cache.anno.{CacheKey, ServiceCache}
+import com.jxjxgo.common.cache.enumeration.CacheMethod
 import com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
-import com.lawsofnatrue.common.cache.anno.{CacheKey, ServiceCache}
-import com.lawsofnatrue.common.cache.enumeration.CacheMethod
-import com.lawsofnature.connection.{DBComponent, MySQLDBImpl}
+import com.jxjxgo.mysql.connection.{DBComponent, MySQLDBImpl}
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
