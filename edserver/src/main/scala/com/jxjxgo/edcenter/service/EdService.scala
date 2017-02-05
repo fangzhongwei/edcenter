@@ -23,11 +23,11 @@ trait  EdService {
 }
 
 class EdServiceImpl @Inject()(eDecryptRepository: EDecryptRepository) extends EdService {
-  var PRE_ = "T"
-  var encryptTypeRsa = "RSA-3DES"
-  var defaultCharset = "UTF-8"
-  var rasPublicKey = ConfigFactory.load().getString("edcrypt.ras.public.key")
-  var rasPrivateKey = ConfigFactory.load().getString("edcrypt.ras.private.key")
+  private[this] val PRE_ = "T"
+  private[this] val encryptTypeRsa = "RSA-3DES"
+  private[this] val defaultCharset = "UTF-8"
+  private[this] val rasPublicKey = ConfigFactory.load().getString("edcrypt.ras.public.key")
+  private[this] val rasPrivateKey = ConfigFactory.load().getString("edcrypt.ras.private.key")
 
   override def encrypt(traceId: String, raw: String): EncryptResponse = {
     val threeDesKey: String = TokenHelper.generateHexToken(16)

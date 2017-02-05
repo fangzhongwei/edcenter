@@ -17,9 +17,9 @@ import com.typesafe.config.{Config, ConfigFactory}
 import org.slf4j.LoggerFactory
 
 object RpcService extends App {
-  var logger = LoggerFactory.getLogger(this.getClass)
+  private[this] val logger = LoggerFactory.getLogger(this.getClass)
 
-  private val config: Config = ConfigFactory.load()
+  private[this] val config: Config = ConfigFactory.load()
 
   var redisClientTemplate: RedisClientTemplate = new RedisClientTemplateImpl(config.getString("redis.shards"),
     config.getInt("redis.shard.connection.timeout"),
@@ -30,9 +30,9 @@ object RpcService extends App {
     config.getBoolean("redis.test.on.borrow")
   )
   redisClientTemplate.init
-  var cacheInterceptor: CacheInterceptor = new CacheInterceptorImpl(redisClientTemplate)
+  private[this] val cacheInterceptor: CacheInterceptor = new CacheInterceptorImpl(redisClientTemplate)
 
-  private val injector = Guice.createInjector(new AbstractModule() {
+  private[this] val injector = Guice.createInjector(new AbstractModule() {
     override def configure() {
       val map: util.HashMap[String, String] = ConfigHelper.configMap
       Names.bindProperties(binder(), map)
