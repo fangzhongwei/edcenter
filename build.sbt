@@ -23,10 +23,9 @@ lazy val edclient = (project in file("edclient")).settings(commonSettings: _*).s
 lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).settings(
   name := """edserver""",
   libraryDependencies ++= Seq(
-    "mysql" % "mysql-connector-java" % "5.1.36",
     "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
     "com.typesafe.slick" %% "slick" % "3.2.0-M2",
-    "com.jxjxgo.common" % "common-mysql_2.11" % "1.0",
+    "com.jxjxgo.common" % "common-db_2.11" % "1.0",
     "com.jxjxgo.edcenter" % "edclient_2.11" % "1.0",
     "com.jxjxgo.common" % "common-utils_2.11" % "1.0",
     "com.jxjxgo.common" % "common-cache_2.11" % "1.0",

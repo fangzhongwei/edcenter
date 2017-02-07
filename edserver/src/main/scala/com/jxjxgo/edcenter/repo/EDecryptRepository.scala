@@ -3,7 +3,7 @@ package com.jxjxgo.edcenter.repo
 import com.jxjxgo.common.cache.anno.{CacheKey, ServiceCache}
 import com.jxjxgo.common.cache.enumeration.CacheMethod
 import com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
-import com.jxjxgo.mysql.connection.{DBComponent, MySQLDBImpl}
+import com.jxjxgo.mysql.connection.{DBComponent, DBImpl}
 
 import scala.concurrent.Await
 import scala.concurrent.duration.Duration
@@ -43,14 +43,10 @@ trait EDecryptRepository extends Tables {
       case None => null
     }
 
-  var index = -1
-
   def getNextTicket(pre: String): String = {
-    index = index + 1
-    val sequenceName = new StringBuilder("ticket_id_").append(index % 3).toString()
-    new StringBuilder(pre).append(Await.result(db.run(sql"""select nextval($sequenceName)""".as[(Long)]), Duration.Inf).head).toString()
+    new StringBuilder(pre).append(Await.result(db.run(sql"""SELECT nextval('seq_ticket_id')""".as[(Long)]), Duration.Inf).head).toString()
   }
 }
 
-class EDecryptRepositoryImpl extends EDecryptRepository with MySQLDBImpl
+class EDecryptRepositoryImpl extends EDecryptRepository with DBImpl
 
