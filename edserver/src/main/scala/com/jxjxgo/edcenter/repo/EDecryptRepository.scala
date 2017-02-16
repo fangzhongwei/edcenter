@@ -48,5 +48,5 @@ trait EDecryptRepository extends Tables {
   }
 }
 
-class EDecryptRepositoryImpl extends EDecryptRepository with DBImpl
+class EDecryptRepositoryImpl extends EDecryptRepository with DBComponent
 
