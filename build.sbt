@@ -22,6 +22,7 @@ lazy val edclient = (project in file("edclient")).settings(commonSettings: _*).s
 
 lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).settings(
   name := """edserver""",
+  mainClass in (Compile, run) := Some("com.jxjxgo.edcenter.rpc.RpcService"),
   libraryDependencies ++= Seq(
     "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
     "com.typesafe.slick" %% "slick" % "3.2.0-M2",
