@@ -10,6 +10,16 @@ trait Tables extends DBImpl {
   // NOTE: GetResult mappers for plain SQL are only generated for tables where Slick knows how to map the types of all columns.
   import slick.jdbc.{GetResult => GR}
 
+  /** Collection-like TableQuery object for table TmEncryptedData */
+  lazy val TmEncryptedData = new TableQuery(tag => new TmEncryptedData(tag))
+
+  /** GetResult implicit for fetching TmEncryptedDataRow objects using plain SQL queries */
+  implicit def GetResultTmEncryptedDataRow(implicit e0: GR[String], e1: GR[Int], e2: GR[java.sql.Timestamp]): GR[TmEncryptedDataRow] = GR {
+    prs =>
+      import prs._
+      TmEncryptedDataRow.tupled((<<[String], <<[String], <<[String], <<[String], <<[String], <<[Int], <<[java.sql.Timestamp]))
+  }
+
   /** Entity class storing rows of table TmEncryptedData
     *
     * @param ticket         Database column ticket SqlType(varchar), PrimaryKey, Length(16,true)
@@ -21,19 +31,8 @@ trait Tables extends DBImpl {
     * @param gmtCreate      Database column gmt_create SqlType(timestamp) */
   case class TmEncryptedDataRow(ticket: String, hash: String, encryptType: String, encryptKey: String, encryptData: String, encryptVersion: Int, gmtCreate: java.sql.Timestamp)
 
-  /** GetResult implicit for fetching TmEncryptedDataRow objects using plain SQL queries */
-  implicit def GetResultTmEncryptedDataRow(implicit e0: GR[String], e1: GR[Int], e2: GR[java.sql.Timestamp]): GR[TmEncryptedDataRow] = GR {
-    prs => import prs._
-      TmEncryptedDataRow.tupled((<<[String], <<[String], <<[String], <<[String], <<[String], <<[Int], <<[java.sql.Timestamp]))
-  }
-
   /** Table description of table tm_encrypted_data. Objects of this class serve as prototypes for rows in queries. */
   class TmEncryptedData(_tableTag: Tag) extends profile.api.Table[TmEncryptedDataRow](_tableTag, "tm_encrypted_data") {
-    def * = (ticket, hash, encryptType, encryptKey, encryptData, encryptVersion, gmtCreate) <> (TmEncryptedDataRow.tupled, TmEncryptedDataRow.unapply)
-
-    /** Maps whole row to an option. Useful for outer joins. */
-    def ? = (Rep.Some(ticket), Rep.Some(hash), Rep.Some(encryptType), Rep.Some(encryptKey), Rep.Some(encryptData), Rep.Some(encryptVersion), Rep.Some(gmtCreate)).shaped.<>({ r => import r._; _1.map(_ => TmEncryptedDataRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get))) }, (_: Any) => throw new Exception("Inserting into ? projection not supported."))
-
     /** Database column ticket SqlType(varchar), PrimaryKey, Length(16,true) */
     val ticket: Rep[String] = column[String]("ticket", O.PrimaryKey, O.Length(16, varying = true))
     /** Database column hash SqlType(varchar), Length(64,true) */
@@ -48,8 +47,10 @@ trait Tables extends DBImpl {
     val encryptVersion: Rep[Int] = column[Int]("encrypt_version")
     /** Database column gmt_create SqlType(timestamp) */
     val gmtCreate: Rep[java.sql.Timestamp] = column[java.sql.Timestamp]("gmt_create")
-  }
 
-  /** Collection-like TableQuery object for table TmEncryptedData */
-  lazy val TmEncryptedData = new TableQuery(tag => new TmEncryptedData(tag))
+    def * = (ticket, hash, encryptType, encryptKey, encryptData, encryptVersion, gmtCreate) <> (TmEncryptedDataRow.tupled, TmEncryptedDataRow.unapply)
+
+    /** Maps whole row to an option. Useful for outer joins. */
+    def ? = (Rep.Some(ticket), Rep.Some(hash), Rep.Some(encryptType), Rep.Some(encryptKey), Rep.Some(encryptData), Rep.Some(encryptVersion), Rep.Some(gmtCreate)).shaped.<>({ r => import r._; _1.map(_ => TmEncryptedDataRow.tupled((_1.get, _2.get, _3.get, _4.get, _5.get, _6.get, _7.get))) }, (_: Any) => throw new Exception("Inserting into ? projection not supported."))
+  }
 }

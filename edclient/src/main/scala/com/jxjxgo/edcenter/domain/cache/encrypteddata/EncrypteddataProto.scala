@@ -5,16 +5,26 @@
 
 package com.jxjxgo.edcenter.domain.cache.encrypteddata
 
+
+
 object EncrypteddataProto {
-  lazy val descriptor: com.google.protobuf.Descriptors.FileDescriptor = {
-    val proto = com.google.protobuf.DescriptorProtos.FileDescriptorProto.parseFrom(
+  private lazy val ProtoBytes: Array[Byte] =
       com.trueaccord.scalapb.Encoding.fromBase64(scala.collection.Seq(
-  """ChljYWNoZS9lbmNyeXB0ZWRkYXRhLnByb3RvIscBCg1FbmNyeXB0ZWREYXRhEhYKBnRpY2tldBgBIAEoCVIGdGlja2V0EhIKB
-  Ghhc2gYAiABKAlSBGhhc2gSIAoLZW5jcnlwdFR5cGUYAyABKAlSC2VuY3J5cHRUeXBlEh4KCmVuY3J5cHRLZXkYBCABKAlSCmVuY
-  3J5cHRLZXkSIAoLZW5jcnlwdERhdGEYBSABKAlSC2VuY3J5cHREYXRhEiYKDmVuY3J5cHRWZXJzaW9uGAYgASgFUg5lbmNyeXB0V
-  mVyc2lvbkIiCiBjb20uanhqeGdvLmVkY2VudGVyLmRvbWFpbi5jYWNoZWIGcHJvdG8z"""
-      ).mkString))
-    com.google.protobuf.Descriptors.FileDescriptor.buildFrom(proto, Array(
+  """ChdzcmMvZW5jcnlwdGVkZGF0YS5wcm90byLHAQoNRW5jcnlwdGVkRGF0YRIWCgZ0aWNrZXQYASABKAlSBnRpY2tldBISCgRoY
+  XNoGAIgASgJUgRoYXNoEiAKC2VuY3J5cHRUeXBlGAMgASgJUgtlbmNyeXB0VHlwZRIeCgplbmNyeXB0S2V5GAQgASgJUgplbmNye
+  XB0S2V5EiAKC2VuY3J5cHREYXRhGAUgASgJUgtlbmNyeXB0RGF0YRImCg5lbmNyeXB0VmVyc2lvbhgGIAEoBVIOZW5jcnlwdFZlc
+  nNpb25CIgogY29tLmp4anhnby5lZGNlbnRlci5kb21haW4uY2FjaGViBnByb3RvMw=="""
+      ).mkString)
+  lazy val scalaDescriptor: _root_.scalapb.descriptors.FileDescriptor = {
+    val scalaProto = com.google.protobuf.descriptor.FileDescriptorProto.parseFrom(ProtoBytes)
+    _root_.scalapb.descriptors.FileDescriptor.buildFrom(scalaProto, Seq(
     ))
   }
+  lazy val javaDescriptor: com.google.protobuf.Descriptors.FileDescriptor = {
+    val javaProto = com.google.protobuf.DescriptorProtos.FileDescriptorProto.parseFrom(ProtoBytes)
+    com.google.protobuf.Descriptors.FileDescriptor.buildFrom(javaProto, Array(
+    ))
+  }
+  @deprecated("Use javaDescriptor instead. In a future version this will refer to scalaDescriptor.", "ScalaPB 0.5.47")
+  def descriptor: com.google.protobuf.Descriptors.FileDescriptor = javaDescriptor
 }

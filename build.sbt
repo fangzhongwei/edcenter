@@ -2,15 +2,15 @@ lazy val commonSettings = Seq(
   javacOptions ++= Seq("-encoding", "UTF-8"),
   organization := "com.jxjxgo.edcenter",
   version := "1.0",
-  scalaVersion := "2.11.8",
+  scalaVersion := "2.12.2",
   libraryDependencies ++= Seq(
     "commons-codec" % "commons-codec" % "1.10",
-    "net.codingwell" % "scala-guice_2.11" % "4.1.0",
-    "org.scala-lang" % "scala-library" % "2.11.8",
-    "com.trueaccord.scalapb" % "scalapb-runtime_2.11" % "0.5.46",
-    "com.fasterxml.jackson.module" % "jackson-module-scala_2.11" % "2.8.4",
-    "com.jxjxgo.common" % "common-finagle-thrift_2.11" % "1.0",
-    "com.jxjxgo.common" % "common-edecrypt_2.11" % "1.0"
+    "net.codingwell" % "scala-guice_2.12" % "4.1.0",
+    "org.scala-lang" % "scala-library" % "2.12.2",
+    "com.trueaccord.scalapb" % "scalapb-runtime_2.12" % "0.6.0-pre5",
+    "com.fasterxml.jackson.module" % "jackson-module-scala_2.12" % "2.8.4",
+    "com.jxjxgo.common" % "common-finagle-thrift_2.12" % "1.1",
+    "com.jxjxgo.common" % "common-edecrypt_2.12" % "1.1"
   )
 )
 
@@ -24,13 +24,11 @@ lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).s
   name := """edserver""",
   mainClass in (Compile, run) := Some("com.jxjxgo.edcenter.rpc.RpcService"),
   libraryDependencies ++= Seq(
-    "com.typesafe.slick" %% "slick-hikaricp" % "3.2.0-M2",
-    "com.typesafe.slick" %% "slick" % "3.2.0-M2",
-    "com.jxjxgo.common" % "common-db_2.11" % "1.0",
-    "com.jxjxgo.edcenter" % "edclient_2.11" % "1.0",
-    "com.jxjxgo.common" % "common-utils_2.11" % "1.0",
-    "com.jxjxgo.common" % "common-cache_2.11" % "1.0",
-    "com.jxjxgo.common" % "common-redis_2.11" % "1.0",
-    "com.jxjxgo.common" % "common-error_2.11" % "1.0"
+    "com.jxjxgo.edcenter" % "edclient_2.12" % "1.0",
+    "com.jxjxgo.common" % "common-db_2.12" % "1.2",
+    "com.jxjxgo.common" % "common-utils_2.12" % "1.1",
+    "com.jxjxgo.common" % "common-cache_2.12" % "1.1",
+    "com.jxjxgo.common" % "common-redis_2.12" % "1.1",
+    "com.jxjxgo.common" % "common-error_2.12" % "1.4"
   )
 )

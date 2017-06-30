@@ -5,6 +5,8 @@
 
 package com.jxjxgo.edcenter.domain.cache.encrypteddata
 
+
+
 @SerialVersionUID(0L)
 final case class EncryptedData(
     ticket: String = "",
@@ -14,143 +16,154 @@ final case class EncryptedData(
     encryptData: String = "",
     encryptVersion: Int = 0
     ) extends com.trueaccord.scalapb.GeneratedMessage with com.trueaccord.scalapb.Message[EncryptedData] with com.trueaccord.lenses.Updatable[EncryptedData] {
-        @transient
-        private[this] var __serializedSizeCachedValue: Int = 0
-        private[this] def __computeSerializedValue(): Int = {
-          var __size = 0
-          if (ticket != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(1, ticket) }
-          if (hash != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(2, hash) }
-          if (encryptType != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(3, encryptType) }
-          if (encryptKey != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(4, encryptKey) }
-          if (encryptData != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(5, encryptData) }
-          if (encryptVersion != 0) { __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(6, encryptVersion) }
-          __size
-        }
-        final override def serializedSize: Int = {
-          var read = __serializedSizeCachedValue
-          if (read == 0) {
-            read = __computeSerializedValue()
-            __serializedSizeCachedValue = read
-          }
-          read
-        }
-        def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): Unit = {
-          {
-            val __v = ticket
-            if (__v != "") {
-              _output__.writeString(1, __v)
-            }
-          };
-          {
-            val __v = hash
-            if (__v != "") {
-              _output__.writeString(2, __v)
-            }
-          };
-          {
-            val __v = encryptType
-            if (__v != "") {
-              _output__.writeString(3, __v)
-            }
-          };
-          {
-            val __v = encryptKey
-            if (__v != "") {
-              _output__.writeString(4, __v)
-            }
-          };
-          {
-            val __v = encryptData
-            if (__v != "") {
-              _output__.writeString(5, __v)
-            }
-          };
-          {
-            val __v = encryptVersion
-            if (__v != 0) {
-              _output__.writeInt32(6, __v)
-            }
-          };
-        }
-        def mergeFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData = {
-          var __ticket = this.ticket
-          var __hash = this.hash
-          var __encryptType = this.encryptType
-          var __encryptKey = this.encryptKey
-          var __encryptData = this.encryptData
-          var __encryptVersion = this.encryptVersion
-          var _done__ = false
-          while (!_done__) {
-            val _tag__ = _input__.readTag()
-            _tag__ match {
-              case 0 => _done__ = true
-              case 10 =>
-                __ticket = _input__.readString()
-              case 18 =>
-                __hash = _input__.readString()
-              case 26 =>
-                __encryptType = _input__.readString()
-              case 34 =>
-                __encryptKey = _input__.readString()
-              case 42 =>
-                __encryptData = _input__.readString()
-              case 48 =>
-                __encryptVersion = _input__.readInt32()
-              case tag => _input__.skipField(tag)
-            }
-          }
-          com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData(
-              ticket = __ticket,
-              hash = __hash,
-              encryptType = __encryptType,
-              encryptKey = __encryptKey,
-              encryptData = __encryptData,
-              encryptVersion = __encryptVersion
-          )
-        }
-        def withTicket(__v: String): EncryptedData = copy(ticket = __v)
-        def withHash(__v: String): EncryptedData = copy(hash = __v)
-        def withEncryptType(__v: String): EncryptedData = copy(encryptType = __v)
-        def withEncryptKey(__v: String): EncryptedData = copy(encryptKey = __v)
-        def withEncryptData(__v: String): EncryptedData = copy(encryptData = __v)
-        def withEncryptVersion(__v: Int): EncryptedData = copy(encryptVersion = __v)
-        def getField(__field: _root_.com.google.protobuf.Descriptors.FieldDescriptor): scala.Any = {
-          __field.getNumber match {
-            case 1 => {
-              val __t = ticket
-              if (__t != "") __t else null
-            }
-            case 2 => {
-              val __t = hash
-              if (__t != "") __t else null
-            }
-            case 3 => {
-              val __t = encryptType
-              if (__t != "") __t else null
-            }
-            case 4 => {
-              val __t = encryptKey
-              if (__t != "") __t else null
-            }
-            case 5 => {
-              val __t = encryptData
-              if (__t != "") __t else null
-            }
-            case 6 => {
-              val __t = encryptVersion
-              if (__t != 0) __t else null
-            }
-          }
-        }
-        override def toString: String = _root_.com.trueaccord.scalapb.TextFormat.printToUnicodeString(this)
-        def companion = com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
+    @transient
+    private[this] var __serializedSizeCachedValue: Int = 0
+    private[this] def __computeSerializedValue(): Int = {
+      var __size = 0
+      if (ticket != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(1, ticket) }
+      if (hash != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(2, hash) }
+      if (encryptType != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(3, encryptType) }
+      if (encryptKey != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(4, encryptKey) }
+      if (encryptData != "") { __size += _root_.com.google.protobuf.CodedOutputStream.computeStringSize(5, encryptData) }
+      if (encryptVersion != 0) { __size += _root_.com.google.protobuf.CodedOutputStream.computeInt32Size(6, encryptVersion) }
+      __size
     }
+    final override def serializedSize: Int = {
+      var read = __serializedSizeCachedValue
+      if (read == 0) {
+        read = __computeSerializedValue()
+        __serializedSizeCachedValue = read
+      }
+      read
+    }
+    def writeTo(`_output__`: _root_.com.google.protobuf.CodedOutputStream): Unit = {
+      {
+        val __v = ticket
+        if (__v != "") {
+          _output__.writeString(1, __v)
+        }
+      };
+      {
+        val __v = hash
+        if (__v != "") {
+          _output__.writeString(2, __v)
+        }
+      };
+      {
+        val __v = encryptType
+        if (__v != "") {
+          _output__.writeString(3, __v)
+        }
+      };
+      {
+        val __v = encryptKey
+        if (__v != "") {
+          _output__.writeString(4, __v)
+        }
+      };
+      {
+        val __v = encryptData
+        if (__v != "") {
+          _output__.writeString(5, __v)
+        }
+      };
+      {
+        val __v = encryptVersion
+        if (__v != 0) {
+          _output__.writeInt32(6, __v)
+        }
+      };
+    }
+    def mergeFrom(`_input__`: _root_.com.google.protobuf.CodedInputStream): com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData = {
+      var __ticket = this.ticket
+      var __hash = this.hash
+      var __encryptType = this.encryptType
+      var __encryptKey = this.encryptKey
+      var __encryptData = this.encryptData
+      var __encryptVersion = this.encryptVersion
+      var _done__ = false
+      while (!_done__) {
+        val _tag__ = _input__.readTag()
+        _tag__ match {
+          case 0 => _done__ = true
+          case 10 =>
+            __ticket = _input__.readString()
+          case 18 =>
+            __hash = _input__.readString()
+          case 26 =>
+            __encryptType = _input__.readString()
+          case 34 =>
+            __encryptKey = _input__.readString()
+          case 42 =>
+            __encryptData = _input__.readString()
+          case 48 =>
+            __encryptVersion = _input__.readInt32()
+          case tag => _input__.skipField(tag)
+        }
+      }
+      com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData(
+          ticket = __ticket,
+          hash = __hash,
+          encryptType = __encryptType,
+          encryptKey = __encryptKey,
+          encryptData = __encryptData,
+          encryptVersion = __encryptVersion
+      )
+    }
+    def withTicket(__v: String): EncryptedData = copy(ticket = __v)
+    def withHash(__v: String): EncryptedData = copy(hash = __v)
+    def withEncryptType(__v: String): EncryptedData = copy(encryptType = __v)
+    def withEncryptKey(__v: String): EncryptedData = copy(encryptKey = __v)
+    def withEncryptData(__v: String): EncryptedData = copy(encryptData = __v)
+    def withEncryptVersion(__v: Int): EncryptedData = copy(encryptVersion = __v)
+    def getFieldByNumber(__fieldNumber: Int): scala.Any = {
+      (__fieldNumber: @_root_.scala.unchecked) match {
+        case 1 => {
+          val __t = ticket
+          if (__t != "") __t else null
+        }
+        case 2 => {
+          val __t = hash
+          if (__t != "") __t else null
+        }
+        case 3 => {
+          val __t = encryptType
+          if (__t != "") __t else null
+        }
+        case 4 => {
+          val __t = encryptKey
+          if (__t != "") __t else null
+        }
+        case 5 => {
+          val __t = encryptData
+          if (__t != "") __t else null
+        }
+        case 6 => {
+          val __t = encryptVersion
+          if (__t != 0) __t else null
+        }
+      }
+    }
+    def getField(__field: _root_.scalapb.descriptors.FieldDescriptor): _root_.scalapb.descriptors.PValue = {
+      require(__field.containingMessage eq companion.scalaDescriptor)
+      (__field.number: @_root_.scala.unchecked) match {
+        case 1 => _root_.scalapb.descriptors.PString(ticket)
+        case 2 => _root_.scalapb.descriptors.PString(hash)
+        case 3 => _root_.scalapb.descriptors.PString(encryptType)
+        case 4 => _root_.scalapb.descriptors.PString(encryptKey)
+        case 5 => _root_.scalapb.descriptors.PString(encryptData)
+        case 6 => _root_.scalapb.descriptors.PInt(encryptVersion)
+      }
+    }
+    override def toString: String = _root_.com.trueaccord.scalapb.TextFormat.printToUnicodeString(this)
+    def companion = com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData
+}
 
 object EncryptedData extends com.trueaccord.scalapb.GeneratedMessageCompanion[com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData] {
   implicit def messageCompanion: com.trueaccord.scalapb.GeneratedMessageCompanion[com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData] = this
   def fromFieldsMap(__fieldsMap: scala.collection.immutable.Map[_root_.com.google.protobuf.Descriptors.FieldDescriptor, scala.Any]): com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData = {
-    require(__fieldsMap.keys.forall(_.getContainingType() == descriptor), "FieldDescriptor does not match message type.")
-    val __fields = descriptor.getFields
+    require(__fieldsMap.keys.forall(_.getContainingType() == javaDescriptor), "FieldDescriptor does not match message type.")
+    val __fields = javaDescriptor.getFields
     com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData(
       __fieldsMap.getOrElse(__fields.get(0), "").asInstanceOf[String],
       __fieldsMap.getOrElse(__fields.get(1), "").asInstanceOf[String],
@@ -160,9 +173,23 @@ object EncryptedData extends com.trueaccord.scalapb.GeneratedMessageCompanion[co
       __fieldsMap.getOrElse(__fields.get(5), 0).asInstanceOf[Int]
     )
   }
-  def descriptor: _root_.com.google.protobuf.Descriptors.Descriptor = EncrypteddataProto.descriptor.getMessageTypes.get(0)
-  def messageCompanionForField(__field: _root_.com.google.protobuf.Descriptors.FieldDescriptor): _root_.com.trueaccord.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__field)
-  def enumCompanionForField(__field: _root_.com.google.protobuf.Descriptors.FieldDescriptor): _root_.com.trueaccord.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__field)
+  implicit def messageReads: _root_.scalapb.descriptors.Reads[com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData] = _root_.scalapb.descriptors.Reads{
+    case _root_.scalapb.descriptors.PMessage(__fieldsMap) =>
+      require(__fieldsMap.keys.forall(_.containingMessage == scalaDescriptor), "FieldDescriptor does not match message type.")
+      com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData(
+        __fieldsMap.get(scalaDescriptor.findFieldByNumber(1).get).map(_.as[String]).getOrElse(""),
+        __fieldsMap.get(scalaDescriptor.findFieldByNumber(2).get).map(_.as[String]).getOrElse(""),
+        __fieldsMap.get(scalaDescriptor.findFieldByNumber(3).get).map(_.as[String]).getOrElse(""),
+        __fieldsMap.get(scalaDescriptor.findFieldByNumber(4).get).map(_.as[String]).getOrElse(""),
+        __fieldsMap.get(scalaDescriptor.findFieldByNumber(5).get).map(_.as[String]).getOrElse(""),
+        __fieldsMap.get(scalaDescriptor.findFieldByNumber(6).get).map(_.as[Int]).getOrElse(0)
+      )
+    case _ => throw new RuntimeException("Expected PMessage")
+  }
+  def javaDescriptor: _root_.com.google.protobuf.Descriptors.Descriptor = EncrypteddataProto.javaDescriptor.getMessageTypes.get(0)
+  def scalaDescriptor: _root_.scalapb.descriptors.Descriptor = EncrypteddataProto.scalaDescriptor.messages(0)
+  def messageCompanionForFieldNumber(__fieldNumber: Int): _root_.com.trueaccord.scalapb.GeneratedMessageCompanion[_] = throw new MatchError(__fieldNumber)
+  def enumCompanionForFieldNumber(__fieldNumber: Int): _root_.com.trueaccord.scalapb.GeneratedEnumCompanion[_] = throw new MatchError(__fieldNumber)
   lazy val defaultInstance = com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData(
   )
   implicit class EncryptedDataLens[UpperPB](_l: _root_.com.trueaccord.lenses.Lens[UpperPB, com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData]) extends _root_.com.trueaccord.lenses.ObjectLens[UpperPB, com.jxjxgo.edcenter.domain.cache.encrypteddata.EncryptedData](_l) {

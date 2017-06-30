@@ -29,7 +29,6 @@ object RpcService extends App {
     config.getInt("redis.max.wait.millis"),
     config.getBoolean("redis.test.on.borrow")
   )
-  redisClientTemplate.init
   private[this] val cacheInterceptor: CacheInterceptor = new CacheInterceptorImpl(redisClientTemplate)
 
   private[this] val injector = Guice.createInjector(new AbstractModule() {
