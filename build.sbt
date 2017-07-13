@@ -26,7 +26,7 @@ lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).s
   libraryDependencies ++= Seq(
     "com.jxjxgo.edcenter" % "edclient_2.12" % "1.0",
     "com.jxjxgo.common" % "common-db_2.12" % "1.2",
-    "com.jxjxgo.common" % "common-utils_2.12" % "1.1",
+    "com.jxjxgo.common" % "common-utils_2.12" % "1.2",
     "com.jxjxgo.common" % "common-cache_2.12" % "1.1",
     "com.jxjxgo.common" % "common-redis_2.12" % "1.1",
     "com.jxjxgo.common" % "common-error_2.12" % "1.4"

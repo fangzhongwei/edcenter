@@ -13,17 +13,15 @@ import scala.concurrent.duration.Duration
   */
 trait EDecryptRepository extends Tables {
   this: DBComponent =>
-
   import profile.api._
 
   implicit def convert(r: TmEncryptedDataRow): EncryptedData = {
     EncryptedData(r.ticket, r.hash, r.encryptType, r.encryptKey, r.encryptData, r.encryptVersion)
   }
 
-  def saveEncryptedData(tmEncryptedDataRow: TmEncryptedDataRow): Int =
-    Await.result(db.run {
-      TmEncryptedData += tmEncryptedDataRow
-    }, Duration.Inf)
+  def saveEncryptedData(tmEncryptedDataRow: TmEncryptedDataRow) = db.run {
+    TmEncryptedData += tmEncryptedDataRow
+  }
 
   @ServiceCache(method = CacheMethod.SELECT, keyDir = "e-t:", expireSeconds = 2592000)
   def getEncryptedData(@CacheKey ticket: String): EncryptedData =
