@@ -29,6 +29,6 @@ lazy val edserver = (project in file("edserver")).settings(commonSettings: _*).s
     "com.jxjxgo.common" % "common-utils_2.12" % "1.2",
     "com.jxjxgo.common" % "common-cache_2.12" % "1.1",
     "com.jxjxgo.common" % "common-redis_2.12" % "1.1",
-    "com.jxjxgo.common" % "common-error_2.12" % "1.4"
+    "com.jxjxgo.common" % "common-error_2.12" % "1.6"
   )
 )
